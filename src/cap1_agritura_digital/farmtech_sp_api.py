@@ -13,6 +13,8 @@ CIDADE_FIXA = "Sao Paulo"
 LATITUDE_SP = -23.5505
 LONGITUDE_SP = -46.6333
 
+
+
 # Vetores principais do projeto
 culturas = []
 comprimentos = []
