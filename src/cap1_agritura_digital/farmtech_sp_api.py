@@ -45,7 +45,7 @@ def ler_float(msg):
         try:
             return float(input(msg))
         except ValueError:
-            print("Entrada invalida. Por favor, digite um numero.")
+            print("Entrada inválida. Por favor, digite um número.")
 
 
 
@@ -72,22 +72,22 @@ def validar_cultura():
         cultura = input("Cultura (milho/soja): ").strip().lower()
         if cultura in ["milho", "soja"]:
             return cultura
-        print("Cultura invalida. Digite 'milho' ou 'soja'.")
+        print("Cultura inválida. Digite 'milho' ou 'soja'.")
 
 
 
 def validar_indice(tamanho):
     if tamanho == 0:
-        print("Nao ha registros cadastrados.")
+        print("Não há registros cadastrados.")
         return -1
     while True:
         try:
-            pos = int(input(f"Digite o indice do registro (0 a {tamanho - 1}): "))
+            pos = int(input(f"Digite o índice do registro (0 a {tamanho - 1}): "))
             if 0 <= pos < tamanho:
                 return pos
-            print(f"Indice invalido. Deve estar entre 0 e {tamanho - 1}.")
+            print(f"Índice inválido. Deve estar entre 0 e {tamanho - 1}.")
         except ValueError:
-            print("Entrada invalida. Digite um numero inteiro.")
+            print("Entrada inválida. Digite um número inteiro.")
 
 
 # ============================================================
@@ -178,16 +178,16 @@ def gerar_alerta_climatico(clima):
         alertas.append("Vento forte: cuidado com pulverizacao.")
 
     if clima["temperatura"] is not None and clima["temperatura"] > 32:
-        alertas.append("Temperatura elevada: monitorar irrigacao e estresse hidrico.")
+        alertas.append("Temperatura elevada: monitorar irrigacão e estresse hídrico.")
 
     if not alertas:
-        return "Sem alertas climaticos no momento."
+        return "Sem alertas climáticos no momento."
     return " | ".join(alertas)
 
 
 
 def mostrar_clima_atual():
-    print("\n--- Clima Atual de Sao Paulo ---")
+    print("\n--- Clima Atual de São Paulo ---")
     clima = buscar_clima_sao_paulo()
     print(f"Cidade..............: {clima['cidade']}")
     print(f"Consulta em.........: {clima['data_consulta']}")
@@ -204,10 +204,10 @@ def mostrar_clima_atual():
 
 def obter_espacamentos(cultura):
     if cultura == "milho":
-        espac_linha = ler_float_intervalo("Espacamento entre linhas (70 a 90 cm): ", 70, 90)
-        espac_planta = ler_float_intervalo("Espacamento entre plantas (20 a 30 cm): ", 20, 30)
+        espac_linha = ler_float_intervalo("Espaçamento entre linhas (70 a 90 cm): ", 70, 90)
+        espac_planta = ler_float_intervalo("Espaçamento entre plantas (20 a 30 cm): ", 20, 30)
     else:
-        espac_linha = ler_float_intervalo("Espacamento entre linhas (45 a 50 cm): ", 45, 50)
+        espac_linha = ler_float_intervalo("Espaçamento entre linhas (45 a 50 cm): ", 45, 50)
         espac_planta = 5.0
 
     return espac_linha, espac_planta
@@ -270,9 +270,9 @@ def mostrar_dados():
     for i in range(len(culturas)):
         print(f"\n[Registro {i}]")
         print(f"  Cultura............: {culturas[i].capitalize()}")
-        print(f"  Dimensoes..........: {larguras[i]}m x {comprimentos[i]}m")
+        print(f"  Dimensões..........: {larguras[i]}m x {comprimentos[i]}m")
         print(f"  Area...............: {areas_ha[i]} ha ({areas_m2[i]} m2)")
-        print(f"  Espacamentos.......: Linhas: {espacamentos_linha[i]}cm | Plantas: {espacamentos_planta[i]}cm")
+        print(f"  Espaçamentos.......: Linhas: {espacamentos_linha[i]}cm | Plantas: {espacamentos_planta[i]}cm")
         print(f"  Estimativas........: {ruas[i]} ruas | {plantas[i]} plantas")
         print(f"  Insumos............: Dose: {doses_insumo[i]} kg/ha | Total: {insumos_totais[i]} kg")
         print(f"  Cidade.............: {cidades[i]}")
@@ -368,7 +368,7 @@ def deletar_dados():
 
 def exportar_csv():
     if len(culturas) == 0:
-        print("Nao ha dados para exportar.")
+        print("Nao há dados para exportar.")
         return
 
     nome_arquivo = "dados_farmtech_sao_paulo.csv"
@@ -396,7 +396,7 @@ def exportar_csv():
                 ventos[i], probabilidades_chuva[i], alertas_climaticos[i]
             ])
 
-    print(f"Arquivo '{nome_arquivo}' exportado com sucesso para analise em R!")
+    print(f"Arquivo '{nome_arquivo}' exportado com sucesso para análise em R!")
 
 
 # ============================================================
@@ -409,15 +409,15 @@ def menu():
         print("  FARMTECH SOLUTIONS - Menu Principal")
         print("=" * 55)
         print("1 - Entrada de dados (Cadastrar terreno)")
-        print("2 - Saida de dados (Listar terrenos)")
-        print("3 - Atualizacao de dados (Editar terreno)")
-        print("4 - Delecao de dados (Excluir terreno)")
+        print("2 - Saída de dados (Listar terrenos)")
+        print("3 - Atualização de dados (Editar terreno)")
+        print("4 - Deleção de dados (Excluir terreno)")
         print("5 - Exportar dados para R (CSV)")
-        print("6 - Consultar clima atual de Sao Paulo")
+        print("6 - Consultar clima atual de São Paulo")
         print("7 - Sair do programa")
         print("=" * 55)
 
-        opcao = input("Escolha uma opcao: ").strip()
+        opcao = input("Escolha uma opção: ").strip()
 
         if opcao == "1":
             inserir_dados()
@@ -432,10 +432,10 @@ def menu():
         elif opcao == "6":
             mostrar_clima_atual()
         elif opcao == "7":
-            print("Encerrando o sistema FarmTech. Ate logo!")
+            print("Encerrando o sistema FarmTech. Até logo!")
             break
         else:
-            print("Opcao invalida. Tente novamente.")
+            print("Opção inválida. Tente novamente.")
 
 
 if __name__ == "__main__":
