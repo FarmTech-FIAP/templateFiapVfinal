@@ -413,8 +413,8 @@ def menu():
         print("3 - Atualização de dados (Editar terreno)")
         print("4 - Deleção de dados (Excluir terreno)")
         print("5 - Exportar dados para R (CSV)")
-        print("6 - Consultar clima atual de São Paulo")
-        print("7 - Sair do programa")
+        # print("6 - Consultar clima atual de São Paulo")
+        print("6 - Sair do programa")
         print("=" * 55)
 
         opcao = input("Escolha uma opção: ").strip()
@@ -429,9 +429,9 @@ def menu():
             deletar_dados()
         elif opcao == "5":
             exportar_csv()
+        # elif opcao == "6":
+        #     mostrar_clima_atual()
         elif opcao == "6":
-            mostrar_clima_atual()
-        elif opcao == "7":
             print("Encerrando o sistema FarmTech. Até logo!")
             break
         else:

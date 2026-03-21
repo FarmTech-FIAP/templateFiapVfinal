@@ -2,56 +2,76 @@
 # g. Aplicação em R para calcular dados estatísticos básicos
 # FarmTech Solutions - Análise Estatística
 # ============================================================
+pasta_projeto <- file.path(getwd(), "FIAP", "src", "cap1_agritura_digital")
+caminho_csv <- file.path(pasta_projeto, "dados_farmtech_sao_paulo.csv")
 
-# 1. Carregar os dados exportados pelo Python
-dados <- read.csv("dados_farmtech.csv")
+if (dir.exists(pasta_projeto)) {
+  cat("Arquivos na pasta:\n")
+  print(list.files(pasta_projeto))
+}
 
-# 2. Visualizar os dados carregados
+dados <- read.csv(caminho_csv, stringsAsFactors = FALSE)
+
+colunas_necessarias <- c("area_ha", "insumo_total_kg", "ruas", "plantas", "cultura")
+faltando <- setdiff(colunas_necessarias, names(dados))
+
+if (length(faltando) > 0) {
+  stop(paste("Colunas ausentes no CSV:", paste(faltando, collapse = ", ")))
+}
+
 cat("========================================\n")
-cat("  FARMTECH - Dados Importados\n")
+cat("   FARMTECH - DADOS IMPORTADOS\n")
 cat("========================================\n\n")
-print(dados)
 
-# 3. Estatísticas Básicas para Área (hectares)
+# Estatisticas gerais
 media_area <- mean(dados$area_ha, na.rm = TRUE)
 desvio_area <- sd(dados$area_ha, na.rm = TRUE)
 
-# 4. Estatísticas Básicas para Insumo Total (kg)
 media_insumo <- mean(dados$insumo_total_kg, na.rm = TRUE)
 desvio_insumo <- sd(dados$insumo_total_kg, na.rm = TRUE)
 
-# 5. Estatísticas Básicas para Quantidade de Ruas
 media_ruas <- mean(dados$ruas, na.rm = TRUE)
 desvio_ruas <- sd(dados$ruas, na.rm = TRUE)
 
-# 6. Estatísticas Básicas para Quantidade de Plantas
 media_plantas <- mean(dados$plantas, na.rm = TRUE)
 desvio_plantas <- sd(dados$plantas, na.rm = TRUE)
 
-# 7. Impressão do Relatório Estatístico
 cat("\n========================================\n")
-cat("  RELATÓRIO ESTATÍSTICO DA FAZENDA\n")
+cat("   RELATORIO ESTATISTICO GERAL\n")
 cat("========================================\n\n")
 
 cat("Area Plantada (ha):\n")
-cat("  - Media:        ", round(media_area, 4), "ha\n")
-cat("  - Desvio Padrao:", round(desvio_area, 4), "ha\n\n")
+cat("  Media: ", round(media_area, 2), "\n")
+cat("  Desvio:", round(desvio_area, 2), "\n\n")
 
 cat("Insumo Total (kg):\n")
-cat("  - Media:        ", round(media_insumo, 2), "kg\n")
-cat("  - Desvio Padrao:", round(desvio_insumo, 2), "kg\n\n")
+cat("  Media: ", round(media_insumo, 2), "\n")
+cat("  Desvio:", round(desvio_insumo, 2), "\n\n")
 
 cat("Quantidade de Ruas:\n")
-cat("  - Media:        ", round(media_ruas, 2), "\n")
-cat("  - Desvio Padrao:", round(desvio_ruas, 2), "\n\n")
+cat("  Media: ", round(media_ruas, 2), "\n")
+cat("  Desvio:", round(desvio_ruas, 2), "\n\n")
 
 cat("Quantidade de Plantas:\n")
-cat("  - Media:        ", round(media_plantas, 2), "\n")
-cat("  - Desvio Padrao:", round(desvio_plantas, 2), "\n\n")
+cat("  Media: ", round(media_plantas, 2), "\n")
+cat("  Desvio:", round(desvio_plantas, 2), "\n\n")
 
-# 8. Gráficos
+cat("========================================\n")
+cat("   ESTATISTICAS POR CULTURA\n")
+cat("========================================\n\n")
 
-# Histograma da Área
+culturas <- unique(dados$cultura)
+
+for (c in culturas) {
+  sub <- dados[dados$cultura == c, ]
+  
+  cat("Cultura:", c, "\n")
+  cat("  Media area (ha): ", round(mean(sub$area_ha, na.rm = TRUE), 2), "\n")
+  cat("  Desvio area:     ", round(sd(sub$area_ha, na.rm = TRUE), 2), "\n")
+  cat("  Media insumo:    ", round(mean(sub$insumo_total_kg, na.rm = TRUE), 2), "\n")
+  cat("  Desvio insumo:   ", round(sd(sub$insumo_total_kg, na.rm = TRUE), 2), "\n\n")
+}
+
 hist(dados$area_ha,
      main = "Histograma - Area Plantada (ha)",
      xlab = "Area (ha)",
@@ -59,14 +79,12 @@ hist(dados$area_ha,
      col = "lightgreen",
      border = "darkgreen")
 
-# Boxplot do Insumo Total
 boxplot(dados$insumo_total_kg,
         main = "Boxplot - Insumo Total (kg)",
         ylab = "Insumo (kg)",
         col = "lightyellow",
         border = "orange")
 
-# Gráfico de dispersão: Área vs Insumo
 plot(dados$area_ha, dados$insumo_total_kg,
      main = "Area (ha) x Insumo Total (kg)",
      xlab = "Area (ha)",
@@ -74,7 +92,6 @@ plot(dados$area_ha, dados$insumo_total_kg,
      col = "blue",
      pch = 19)
 
-# Boxplot comparativo de área por cultura
 boxplot(area_ha ~ cultura, data = dados,
         main = "Area por Cultura",
         xlab = "Cultura",
