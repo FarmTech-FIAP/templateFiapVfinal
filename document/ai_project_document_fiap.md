@@ -10,6 +10,7 @@ Caroline Coelho
 Leandro Paiva
 Lucas Viana
 Matheus Lima
+Arthur Prudêncio
 
 
 ## Sumário
