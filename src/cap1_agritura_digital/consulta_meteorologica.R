@@ -60,6 +60,7 @@ hora_leitura <- meteo$current$time
 cat("========================================\n")
 cat("   CLIMA ATUAL\n")
 cat("========================================\n")
+cat("Cidade:                    ", "São Paulo", "\n")
 cat("Horario da leitura:        ", hora_leitura, "\n")
 cat("Temperatura atual:         ", temp_atual, "C\n")
 cat("Umidade relativa do ar:    ", umidade_atual, "%\n")
