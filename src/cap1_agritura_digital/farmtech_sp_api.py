@@ -256,9 +256,6 @@ def inserir_dados():
     alertas_climaticos.append(alerta)
 
     print(f"Registro cadastrado com sucesso! (Indice: {len(culturas) - 1})")
-    print(f"Clima consultado em Sao Paulo: {clima['temperatura']} °C | Chuva: {clima['probabilidade_chuva']} %")
-    print(f"Alerta: {alerta}")
-
 
 
 def mostrar_dados():
